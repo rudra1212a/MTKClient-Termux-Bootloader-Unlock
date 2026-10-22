@@ -11,21 +11,34 @@ This guide shows how to fix all these bugs so that MTKClient runs 100% successfu
 First, install the required packages and Python in Termux. Run the following commands one by one:
 
 ```bash
-pkg update && pkg upgrade -y
+(pkg update && pkg upgrade -y)
+```
 
-pkg install git python libusb termux-api -y
+```bash
+(pkg install git python libusb termux-api -y)
+```
+
 
 Now clone the MTKClient source code and enter the folder:
 
-git clone https://github.com/bkerler/mtkclient
+```bash
+(git clone https://github.com/bkerler/mtkclient)
+```
 
-cd mtkclient
+```bash
+(cd mtkclient)
+```
 
 Install the required Python libraries:
 
-pip install pyusb libusb1 pyserial
+```bash
+(pip install pyusb libusb1 pyserial)
+```
 
-pip install -r requirements.txt
+```bash
+(pip install -r requirements.txt)
+```
+
 
 🐛 Step 2: The Magic Bug Fixes (Errors Solved)
 
@@ -35,25 +48,39 @@ Fix 1: Pyserial Posix Error
 
 Android cannot scan serial ports, which causes a crash. Run this:
 
-find /data/data/com.termux/files/usr/lib/python* -name "posix.py" -exec sed -i 's/TIOCM_RTS/0x5401/g' {} +
+```bash
+(find /data/data/com.termux/files/usr/lib/python* -name "posix.py" -exec sed -i 's/TIOCM_RTS/0x5401/g' {} +)
+```
 
 Fix 2: Libfuse / mfusepy Error
 
 Termux does not support libfuse, which causes python installation to fail. Uninstall it:
 
-pip uninstall mfusepy -y
+
+```bash
+(pip uninstall mfusepy -y)
+```
+
 
 Fix 3: UsbClass Backend Error
 
 The most annoying error AttributeError: 'UsbClass' object has no attribute 'find'. Fix it using:
 
-find ~/mtkclient -name "usblib.py" -exec sed -i 's/backend=backend/\#backend=backend/g' {} +
+
+```bash
+(find ~/mtkclient -name "usblib.py" -exec sed -i 's/backend=backend/\#backend=backend/g' {} +)
+```
+
 
 Fix 4: USB Driver Path Fix
 
 Set the path so that Termux can correctly find the libusb driver:
 
-export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+
+```bash
+(export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib)
+```
+
 
 ⚡ Step 3: Connect & Unlock
 
@@ -61,19 +88,30 @@ All fixes are done! Now it's time to connect the device and unlock.
 
 1. Check USB Port:
 
-termux-usb -l
+
+```bash
+(termux-usb -l)
+```
 
 (You will get a port address here, for example /dev/bus/usb/001/002)
 
 2. Grant Permission:
 
-termux-usb -r /dev/bus/usb/001/002
+
+```bash
+(termux-usb -r /dev/bus/usb/001/002)
+```
+
 
 (Replace the address with the exact port number you received)
 
 3. Run Unlock Command:
 
-python mtk.py da seccfg unlock
+
+```bash
+(python mtk.py da seccfg unlock)
+```
+
 
 4. Connect the Phone:
 

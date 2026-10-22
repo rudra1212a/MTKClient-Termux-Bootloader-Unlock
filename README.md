@@ -108,9 +108,9 @@ termux-usb -r /dev/bus/usb/001/002
 3. Run Unlock Command:
 
 
-```bash
+(```bash
 python mtk.py da seccfg unlock
-```
+```)
 
 
 4. Connect the Phone:

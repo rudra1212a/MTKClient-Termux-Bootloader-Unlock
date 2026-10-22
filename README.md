@@ -124,3 +124,37 @@ python mtk.py da seccfg unlock
 Power off the target phone completely. Then hold both Volume Up + Volume Down buttons and plug in the USB cable from your other phone using an OTG adapter.
 
 Done! You will see "Success" in Termux and your bootloader will be unlocked! 🎉
+
+> **Note:** Whenever you close Termux and want to use MTKClient again later, just use these commands to reopen and run the tool without reinstalling everything.
+
+
+🚀 How to Run MTKClient Again After Exiting Termux
+
+If you have already completed the installation and closed Termux, you do not need to reinstall everything. Follow these simple steps to run it again:
+
+1.Open Termux on your device.
+
+2.Navigate to the mtkclient directory by typing:
+
+```bash
+cd mtkclient
+```
+
+3.Connect your target device via OTG cable in BROM mode (Power off, hold Vol+ & Vol-).
+
+4.Run your desired command. For example, to check the help menu or perform a bootloader unlock:
+
+• To check help:
+
+```bash
+python mtk.py -h
+```
+
+• To unlock the bootloader:
+
+```bash
+python mtk.py da seccfg unlock
+```
+
+> **Tip:** You do not need to install anything again. Run these quick commands anytime later to re-access and use MTKClient.
+

@@ -1,18 +1,4 @@
- # MTKClient on Termux - Ultimate Bug Fix Guide 🚀
-
-MTKClient is an excellent tool to unlock or flash MediaTek (MTK) device bootloaders using Termux on Android without needing a PC. However, when installed directly on Termux, it throws critical errors related to `pyserial`, `libfuse`, and `UsbClass backend`, which prevent the tool from connecting to the phone.
-
-This guide shows how to fix all these bugs so that MTKClient runs 100% successfully on Termux.
-
----
-
-## 🛠️ Step 1: Basic Installation
-
-First, install the required packages and Python in Termux. Run the following commands one by one:
-
-```bash
-
-pkg update && pkg upgrade -y
+ pkg update && pkg upgrade -y
 pkg install git python libusb termux-api -y
 Now clone the MTKClient source code and enter the folder:
 git clone [https://github.com/bkerler/mtkclient](https://github.com/bkerler/mtkclient)
@@ -47,6 +33,3 @@ python mtk.py da seccfg unlock
 4. Connect the Phone:
 Power off the target phone completely. Then hold both Volume Up + Volume Down buttons and plug in the USB cable from your other phone using an OTG adapter.
 Done! You will see "Success" in Termux and your bootloader will be unlocked! 🎉
-
-
-

@@ -1,4 +1,3 @@
-# 
 # MTKClient on Termux - Ultimate Bug Fix Guide 🚀
 
 MTKClient is an excellent tool to unlock or flash MediaTek (MTK) device bootloaders using Termux on Android without needing a PC. However, when installed directly on Termux, it throws critical errors related to `pyserial`, `libfuse`, and `UsbClass backend`, which prevent the tool from connecting to the phone.
@@ -7,57 +6,68 @@ This guide shows how to fix all these bugs so that MTKClient runs 100% successfu
 
 ---
 
-## 🔧 Step 1: Basic Installation
+## 🛠️ Step 1: Basic Installation
 
 First, install the required packages and Python in Termux. Run the following commands one by one:
 
 ```bash
 pkg update && pkg upgrade -y
+
 pkg install git python libusb termux-api -y
 
-
 Now clone the MTKClient source code and enter the folder:
-git clone https://github.com/bkerler/mtkclient
+ 
+git clon https://github.com/bkerler/mtkclient
+
 cd mtkclient
 
 Install the required Python libraries:
+
 pip install pyusb libusb1 pyserial
+
 pip install -r requirements.txt
 
-
 🐛 Step 2: The Magic Bug Fixes (Errors Solved)
-Normally the setup should be complete here, but on Termux you need to modify some specific files, otherwise the tool will not work. Use the commands below to apply all the fixes.
+Normally the setup should be complete here, but Termux throws 4 major errors. Run these commands to fix them:
 Fix 1: Pyserial Posix Error
-Android cannot scan serial ports, which causes ImportError: no implementation for your platform ('posix'). Fix it with:
+Android cannot scan serial ports, which causes a crash. Run this:
 
-find /data/data/com.termux/files/usr/lib/python* -name "list_ports_posix.py" -exec sh -c 'echo "def comports(include_links=False): return []" > "$1"' _ {} +
+find /data/data/com.termux/files/usr/lib/python* -name "posix.py" -exec sed -i 's/TIOCM_RTS/0x5401/g' {} +
 
 Fix 2: Libfuse / mfusepy Error
-Termux does not support libfuse, which causes unnecessary crashes. Remove it:
+Termux does not support libfuse, which causes python installation to fail. Uninstall it:
+
 pip uninstall mfusepy -y
 
 Fix 3: UsbClass Backend Error
-The most annoying error AttributeError: 'UsbClass' object has no attribute 'backend' can be permanently fixed by editing the main code: 
-find \~/mtkclient -name "usblib.py" -exec sed -i 's/if self.backend is not None:/if hasattr(self, "backend") and self.backend is not None:/g' {} +
+The most annoying error AttributeError: 'UsbClass' object has no attribute 'find'. Fix it using:
 
+find \~/mtkclient -name "usblib.py" -exec sed -i 's/backend=backend/\\#backend=backend/g' {} +
 
 Fix 4: USB Driver Path Fix
-Set the path so that Termux can correctly find the USB driver:
-export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib:$LD_LIBRARY_PATH
+Set the path so that Termux can correctly find the libusb driver:
+
+export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 
 ⚡ Step 3: Connect & Unlock
-All fixes are done! Now it's time to connect the target phone.
+All fixes are done! Now it's time to connect the device and unlock.
 1. Check USB Port:
+
 termux-usb -l
-(You will get a port address here, for example: /dev/bus/usb/001/026)
+
+(You will get a port address here, for example /dev/bus/usb/001/002)
 
 2. Grant Permission:
-termux-usb -r 
 
-(Replace the address with the port number you got, and press OK when the popup appears on the main phone)
-3. Run Unlock Command: 
+termux-usb -r
+
+(Replace the address with the exact port number you received)
+
+3. Run Unlock Command:
+
 python mtk.py da seccfg unlock
 
 4. Connect the Phone:
-Power off the target phone completely. Then hold both Volume Up (+) and Volume Down (-) buttons together and connect the OTG cable (do not press the power button).
-Done! You will see "Success" in Termux and your bootloader will be unlocked! 🎉 
+Power off the target phone completely. Then hold both Volume Up + Volume Down buttons and plug in the USB cable from your other phone using an OTG adapter.
+Done! You will see "Success" in Termux and your bootloader will be unlocked! 🎉
+

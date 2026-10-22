@@ -157,5 +157,6 @@ python mtk.py -h
 python mtk.py da seccfg unlock
 ```
 
+
 > **Tip:** You do not need to install anything again. Run these quick commands anytime later to re-access and use MTKClient.
 

@@ -12,7 +12,7 @@ First, install the required packages and Python in Termux. Run the following com
 
 ```bash
 
-# pkg update && pkg upgrade -y
+(```pkg update && pkg upgrade -y)
 
 
 pkg install git python libusb termux-api -y

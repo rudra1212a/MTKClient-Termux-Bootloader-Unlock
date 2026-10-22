@@ -61,7 +61,7 @@ termux-usb -l
 
 2. Grant Permission:
 
-termux-usb -r
+#```{termux-usb -r}```
 
 (Replace the address with the exact port number you received)
 

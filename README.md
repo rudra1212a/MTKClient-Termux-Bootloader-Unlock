@@ -81,6 +81,12 @@ Set the path so that Termux can correctly find the libusb driver:
 export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 ```
 
+Fix 5: Check Tool Help & Options (Optional)
+If you want to view the mtkclient help menu and check all available commands, run this:
+
+```bash
+python mtk.py -h
+```
 
 ⚡ Step 3: Connect & Unlock
 

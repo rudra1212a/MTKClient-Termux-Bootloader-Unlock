@@ -13,12 +13,11 @@ First, install the required packages and Python in Termux. Run the following com
 ```bash
 pkg update && pkg upgrade -y
 
-
 pkg install git python libusb termux-api -y
 
 Now clone the MTKClient source code and enter the folder:
 
-git clone [https://github.com/bkerler/mtkclient](https://github.com/bkerler/mtkclient)
+git clone https://github.com/bkerler/mtkclient
 
 cd mtkclient
 
@@ -29,9 +28,11 @@ pip install pyusb libusb1 pyserial
 pip install -r requirements.txt
 
 🐛 Step 2: The Magic Bug Fixes (Errors Solved)
+
 Normally the setup should be complete here, but Termux throws 4 major errors. Run these commands to fix them:
 
 Fix 1: Pyserial Posix Error
+
 Android cannot scan serial ports, which causes a crash. Run this:
 
 find /data/data/com.termux/files/usr/lib/python* -name "posix.py" -exec sed -i 's/TIOCM_RTS/0x5401/g' {} +
@@ -70,6 +71,8 @@ termux-usb -r /dev/bus/usb/001/002
 
 (Replace the address with the exact port number you received)
 
+3. Run Unlock Command:
+
 python mtk.py da seccfg unlock
 
 4. Connect the Phone:
@@ -77,5 +80,3 @@ python mtk.py da seccfg unlock
 Power off the target phone completely. Then hold both Volume Up + Volume Down buttons and plug in the USB cable from your other phone using an OTG adapter.
 
 Done! You will see "Success" in Termux and your bootloader will be unlocked! 🎉
-
-

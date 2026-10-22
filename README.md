@@ -109,7 +109,7 @@ All fixes are done! Now it's time to connect the device and unlock.
 
 
 ```bash
-(python mtk.py da seccfg unlock)
+python mtk.py da seccfg unlock
 ```
 
 

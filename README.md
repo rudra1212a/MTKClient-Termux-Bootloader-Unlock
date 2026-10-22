@@ -11,32 +11,32 @@ This guide shows how to fix all these bugs so that MTKClient runs 100% successfu
 First, install the required packages and Python in Termux. Run the following commands one by one:
 
 ```bash
-(pkg update && pkg upgrade -y)
+pkg update && pkg upgrade -y
 ```
 
 ```bash
-(pkg install git python libusb termux-api -y)
+pkg install git python libusb termux-api -y
 ```
 
 
 Now clone the MTKClient source code and enter the folder:
 
 ```bash
-(git clone https://github.com/bkerler/mtkclient)
+git clone https://github.com/bkerler/mtkclient
 ```
 
 ```bash
-(cd mtkclient)
+cd mtkclient
 ```
 
 Install the required Python libraries:
 
 ```bash
-(pip install pyusb libusb1 pyserial)
+pip install pyusb libusb1 pyserial
 ```
 
 ```bash
-(pip install -r requirements.txt)
+pip install -r requirements.txt
 ```
 
 
@@ -49,7 +49,7 @@ Fix 1: Pyserial Posix Error
 Android cannot scan serial ports, which causes a crash. Run this:
 
 ```bash
-(find /data/data/com.termux/files/usr/lib/python* -name "posix.py" -exec sed -i 's/TIOCM_RTS/0x5401/g' {} +)
+find /data/data/com.termux/files/usr/lib/python* -name "posix.py" -exec sed -i 's/TIOCM_RTS/0x5401/g' {} +
 ```
 
 Fix 2: Libfuse / mfusepy Error
@@ -58,7 +58,7 @@ Termux does not support libfuse, which causes python installation to fail. Unins
 
 
 ```bash
-(pip uninstall mfusepy -y)
+pip uninstall mfusepy -y
 ```
 
 
@@ -68,7 +68,7 @@ The most annoying error AttributeError: 'UsbClass' object has no attribute 'find
 
 
 ```bash
-(find ~/mtkclient -name "usblib.py" -exec sed -i 's/backend=backend/\#backend=backend/g' {} +)
+find ~/mtkclient -name "usblib.py" -exec sed -i 's/backend=backend/\#backend=backend/g' {} +
 ```
 
 
@@ -78,7 +78,7 @@ Set the path so that Termux can correctly find the libusb driver:
 
 
 ```bash
-(export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib)
+export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 ```
 
 
@@ -90,7 +90,7 @@ All fixes are done! Now it's time to connect the device and unlock.
 
 
 ```bash
-(termux-usb -l)
+termux-usb -l
 ```
 
 (You will get a port address here, for example /dev/bus/usb/001/002)
@@ -99,7 +99,7 @@ All fixes are done! Now it's time to connect the device and unlock.
 
 
 ```bash
-(termux-usb -r /dev/bus/usb/001/002)
+termux-usb -r /dev/bus/usb/001/002
 ```
 
 

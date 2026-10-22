@@ -125,6 +125,7 @@ Power off the target phone completely. Then hold both Volume Up + Volume Down bu
 
 Done! You will see "Success" in Termux and your bootloader will be unlocked! 🎉
 
+
 > **Note:** Whenever you close Termux and want to use MTKClient again later, just use these commands to reopen and run the tool without reinstalling everything.
 
 

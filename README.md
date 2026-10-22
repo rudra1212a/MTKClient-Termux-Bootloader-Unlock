@@ -15,6 +15,7 @@ First, install the required packages and Python in Termux. Run the following com
 pkg update && pkg upgrade -y
 
 ```bash
+
 pkg install git python libusb termux-api -y
 
 Now clone the MTKClient source code and enter the folder:

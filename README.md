@@ -11,8 +11,9 @@ This guide shows how to fix all these bugs so that MTKClient runs 100% successfu
 First, install the required packages and Python in Termux. Run the following commands one by one:
 
 ```bash
-pkg update && pkg upgrade -y
+(pkg update && pkg upgrade -y)
 
+```bash
 pkg install git python libusb termux-api -y
 
 Now clone the MTKClient source code and enter the folder:
